@@ -27,9 +27,23 @@
 </head>
 
 <body>
-    <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for names" title="Type in a name">
-    <button>Search</button>
-    <table id="data"></table>
+    <input type="text" id="myInput" style="margin : 10px" placeholder="Search for names" title="Type in a name">
+    <button id="btnSearch" style="margin : 10px">Search</button>
+    <table id="data">
+        <tr>
+            <th>Name</th>
+            <th>Rotation Period</th>
+            <th>Orbital Period</th>
+            <th>Diameter</th>
+            <th>Climate</th>
+            <th>Gravity</th>
+            <th>Terrain</th>
+            <th>Surface Water</th>
+            <th>Population</th>
+        </tr>
+    </table>
+    <p><strong>Hasil</strong></p>
+    <div id="hasil"></div>
     <script type="text/javascript">
         var data = {
             "count": 61,
@@ -269,6 +283,7 @@
             var cell7 = row.insertCell(6);
             var cell8 = row.insertCell(7);
             var cell9 = row.insertCell(8);
+            var cell10 = row.insertCell(9);
             cell1.innerHTML = data.results[i].name;
             cell2.innerHTML = data.results[i].rotation_period;
             cell3.innerHTML = data.results[i].orbital_period;
@@ -279,6 +294,37 @@
             cell8.innerHTML = data.results[i].surface_water;
             cell9.innerHTML = data.results[i].population;
         }
+
+        var setHasil = function(){
+            var value = document.getElementById("myInput").value
+            var result = document.getElementById("hasil");
+            var resultFilter = data.results.filter(
+                d => d.name.toLowerCase() === value.toLowerCase()
+            );
+            result.innerHTML =
+            "<p>Name : " +
+            resultFilter[0].name +
+            "</p><p>Rotation Period : " +
+            resultFilter[0].rotation_period +
+            "</p><p>Orbital Period : " +
+            resultFilter[0].orbital_period +
+            "</p><p>Diameter : " +
+            resultFilter[0].diameter +
+            "</p><p>Climate : " +
+            resultFilter[0].climate +
+            "</p><p>Gravity : " +
+            resultFilter[0].gravity +
+            "</p><p>Terrain : " +
+            resultFilter[0].terrain +
+            "</p><p>Surface Water : " +
+            resultFilter[0].surface_water +
+            "</p><p>Population : " +
+            resultFilter[0].population +
+            "</p>";
+        };
+
+        var btnSearch = document.getElementById("btnSearch");
+        btnSearch.onclick = setHasil;
        
     </script>
 
